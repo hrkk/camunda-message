@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_00cb7uj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.5.0">
+  <bpmn:process id="Process_None_interupting" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1m587qv</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1m587qv" sourceRef="StartEvent_1" targetRef="Activity_0aiklnm" />
+    <bpmn:boundaryEvent id="Event_11vhnx7" cancelActivity="false" attachedToRef="Activity_14jp14o">
+      <bpmn:outgoing>Flow_0ce0n1w</bpmn:outgoing>
+      <bpmn:conditionalEventDefinition id="ConditionalEventDefinition_1dkhmzz" camunda:variableEvents="create">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression">#{count&gt;=1}</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:boundaryEvent>
+    <bpmn:sequenceFlow id="Flow_0ce0n1w" sourceRef="Event_11vhnx7" targetRef="Activity_0sxld36" />
+    <bpmn:endEvent id="Event_0coivbj">
+      <bpmn:incoming>Flow_1did4bu</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1u5vmn4" sourceRef="Activity_0aiklnm" targetRef="Activity_14jp14o" />
+    <bpmn:endEvent id="Event_1d5ofo0">
+      <bpmn:incoming>Flow_1f65065</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1f65065" sourceRef="Activity_0sxld36" targetRef="Event_1d5ofo0" />
+    <bpmn:sequenceFlow id="Flow_1did4bu" sourceRef="Activity_14jp14o" targetRef="Event_0coivbj" />
+    <bpmn:serviceTask id="Activity_0aiklnm" name="Travel to Foon" camunda:delegateExpression="${ahoyService}">
+      <bpmn:incoming>Flow_1m587qv</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u5vmn4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_14jp14o" name="next" camunda:class="com.example.workflow.RestServiceJavaDelegate">
+      <bpmn:incoming>Flow_1u5vmn4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1did4bu</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0yim8kl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0sxld36" name="Go here too" camunda:delegateExpression="${nonInter}">
+      <bpmn:incoming>Flow_0ce0n1w</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f65065</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0yim8kl" sourceRef="Activity_14jp14o" targetRef="Activity_1pkncux" />
+    <bpmn:serviceTask id="Activity_1pkncux" name="next2" camunda:delegateExpression="${ahoyService2}">
+      <bpmn:incoming>Flow_0yim8kl</bpmn:incoming>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_None_interupting">
+      <bpmndi:BPMNEdge id="Flow_1did4bu_di" bpmnElement="Flow_1did4bu">
+        <di:waypoint x="590" y="117" />
+        <di:waypoint x="811" y="117" />
+        <di:waypoint x="811" y="130" />
+        <di:waypoint x="1032" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f65065_di" bpmnElement="Flow_1f65065">
+        <di:waypoint x="530" y="380" />
+        <di:waypoint x="530" y="462" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u5vmn4_di" bpmnElement="Flow_1u5vmn4">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="490" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ce0n1w_di" bpmnElement="Flow_0ce0n1w">
+        <di:waypoint x="530" y="175" />
+        <di:waypoint x="530" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1m587qv_di" bpmnElement="Flow_1m587qv">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yim8kl_di" bpmnElement="Flow_0yim8kl">
+        <di:waypoint x="590" y="117" />
+        <di:waypoint x="710" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0mrwlec_di" bpmnElement="Activity_0aiklnm">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11tyade_di" bpmnElement="Activity_14jp14o">
+        <dc:Bounds x="490" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0coivbj_di" bpmnElement="Event_0coivbj">
+        <dc:Bounds x="1032" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1962db0_di" bpmnElement="Activity_1pkncux">
+        <dc:Bounds x="710" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qdvdiy_di" bpmnElement="Activity_0sxld36">
+        <dc:Bounds x="480" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1d5ofo0_di" bpmnElement="Event_1d5ofo0">
+        <dc:Bounds x="512" y="462" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0gc9dkm_di" bpmnElement="Event_11vhnx7">
+        <dc:Bounds x="512" y="139" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
